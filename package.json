@@ -1,6 +1,10 @@
 {
   "name": "movie-music-app",
   "version": "0.0.0",
+  "engines": {
+    "node": "12.9.0",
+    "npm": "6.10.2"
+  },
   "scripts": {
     "ng": "ng",
     "start": "node server.js",
