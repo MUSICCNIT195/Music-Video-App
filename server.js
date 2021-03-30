@@ -1,12 +1,16 @@
-
+//Install express server    
 const express = require('express');
-const app = express();
 
-app.use(express.static('./dist/movie-music-app'));
+const path = require('path');   
 
-app.get('/*', function(req, res) {
-    res.sendFile('index.html', {root: 'dist/movie-music-app\src'}
-  );
-  });
+const app = express();   
 
-  app.listen(process.env.PORT || 8080);
+// Serve only the static files form the dist directory    
+app.use(express.static('movie-music-app' + '/dist'));
+
+app.get('/*', function(req,res) {  
+    res.sendFile(path.join('movie-music-app' +'/dist/index.html'));   
+});  
+
+// Start the app by listening on the default Heroku port    
+app.listen(process.env.PORT || 8080);
