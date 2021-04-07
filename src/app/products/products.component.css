@@ -1,0 +1,19 @@
+.shortDesc{
+        font-weight:bold;
+}
+.container{
+    display:block;
+text-align:center;
+width: max-content;
+
+}
+
+.sizeAndPrice{
+    display:inline;
+}
+div.product{
+    border: 2px solid black;
+ 
+    margin:10px;
+}
+
