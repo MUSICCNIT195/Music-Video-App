@@ -6,7 +6,7 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./nav.component.css']
 })
 export class NavComponent implements OnInit {
-  appTitle: string = 'Homework Angular';
+  appTitle: string = 'Movie/Music App';
   constructor() { }
 
   ngOnInit(): void {
