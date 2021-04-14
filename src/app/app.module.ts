@@ -10,6 +10,7 @@ import { ContactComponent } from './contact/contact.component';
 import { RouterModule } from '@angular/router';
 import { ReactiveFormsModule } from '@angular/forms';
 import { SearchMoviesComponent } from './search-movies/search-movies.component';
+import { MovieTableComponent } from './movie-table/movie-table.component';
 
 @NgModule({
   declarations: [
@@ -19,6 +20,7 @@ import { SearchMoviesComponent } from './search-movies/search-movies.component';
     MoviesComponent,
     ContactComponent,
     SearchMoviesComponent,
+    MovieTableComponent,
   
   ],
   imports: [
@@ -26,6 +28,10 @@ import { SearchMoviesComponent } from './search-movies/search-movies.component';
     AppRoutingModule,
     RouterModule,
     ReactiveFormsModule
+  ],
+  exports:[
+    SearchMoviesComponent,
+    MovieTableComponent
   ],
   providers: [],
   bootstrap: [AppComponent]
