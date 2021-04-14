@@ -9,6 +9,7 @@ import { MoviesComponent } from './movies/movies.component';
 import { ContactComponent } from './contact/contact.component';
 import { RouterModule } from '@angular/router';
 import { ReactiveFormsModule } from '@angular/forms';
+import { SearchMoviesComponent } from './search-movies/search-movies.component';
 
 @NgModule({
   declarations: [
@@ -17,6 +18,7 @@ import { ReactiveFormsModule } from '@angular/forms';
     HomeComponent,
     MoviesComponent,
     ContactComponent,
+    SearchMoviesComponent,
   
   ],
   imports: [
