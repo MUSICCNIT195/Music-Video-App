@@ -9,6 +9,8 @@ import { MoviesComponent } from './movies/movies.component';
 import { ContactComponent } from './contact/contact.component';
 import { RouterModule } from '@angular/router';
 import { ReactiveFormsModule } from '@angular/forms';
+import { SearchMoviesComponent } from './search-movies/search-movies.component';
+import { MovieTableComponent } from './movie-table/movie-table.component';
 
 @NgModule({
   declarations: [
@@ -17,6 +19,8 @@ import { ReactiveFormsModule } from '@angular/forms';
     HomeComponent,
     MoviesComponent,
     ContactComponent,
+    SearchMoviesComponent,
+    MovieTableComponent,
   
   ],
   imports: [
@@ -24,6 +28,10 @@ import { ReactiveFormsModule } from '@angular/forms';
     AppRoutingModule,
     RouterModule,
     ReactiveFormsModule
+  ],
+  exports:[
+    SearchMoviesComponent,
+    MovieTableComponent
   ],
   providers: [],
   bootstrap: [AppComponent]
