@@ -33,10 +33,10 @@ export class SearchMoviesComponent implements OnInit {
   /**
    * name
    */
-
+  
    
     
-   val4 = this.BaseUrl + 'api_key='+this.key + 'query='+this.searchFor;
+   val4 = this.BaseUrl + 'query=' + this.searchFor+ '&api_key='+this.key ;
 
 
   ngOnInit(): void {
@@ -44,12 +44,13 @@ export class SearchMoviesComponent implements OnInit {
    
   }
   onSubmit() {
+    console.log("Full url: "+ this.val4);
     this.submitted = true;
     if (this.emailForm.invalid) {
       return; /* no code will be executed after this point */
     }
     this.ok = true;
-    console.log("search word: " + this.emailForm.get('name').value) + "Full url"+ this.val4;
+    
   }
 
 }
