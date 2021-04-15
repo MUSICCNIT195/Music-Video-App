@@ -18,12 +18,16 @@ import { SearchMoviesComponent } from '../search-movies/search-movies.component'
  export class MoviesComponent implements OnInit {
   https: any;
  
-
+  shortDesc: boolean = false
+  movies:  any  = (productData as  any).default;
+  emailForm: FormGroup;
+  submitted = false;
+  ok = false;
 
   
 
  
- // constructor() { }
+  constructor() { }
 
  
   ngOnInit(): void {

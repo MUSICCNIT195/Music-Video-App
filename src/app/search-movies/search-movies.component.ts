@@ -15,8 +15,8 @@ export class SearchMoviesComponent implements OnInit {
   ok = false;
   name: any;
   values_qry: HttpParams;
-searchFor:any;
-fullUrl:any;
+  movies: any;
+
   constructor(private myformBuilder: FormBuilder) {
     this.emailForm = this.myformBuilder.group({
       name: [''],
@@ -33,10 +33,10 @@ fullUrl:any;
   /**
    * name
    */
-
-
+  
+   
     
-
+   val4 = this.BaseUrl + 'query=' + this.searchFor+ '&api_key='+this.key ;
 
 
   ngOnInit(): void {
@@ -44,14 +44,13 @@ fullUrl:any;
    
   }
   onSubmit() {
-    this.fullUrl=this.BaseUrl + 'api_key='+this.key + 'query='+this.searchFor;
-
+    console.log("Full url: "+ this.val4);
     this.submitted = true;
     if (this.emailForm.invalid) {
       return; /* no code will be executed after this point */
     }
-    this.ok = true; 
-    console.log("search word: " + this.emailForm.get('name').value) + "Full url"+ this.fullUrl;
+    this.ok = true;
+    
   }
 
 }
