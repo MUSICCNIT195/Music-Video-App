@@ -2,7 +2,7 @@ import { query } from '@angular/animations';
 import { HttpParams } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import  *  as  productData  from  'src/assets/movies.json';
+
 
 @Component({
   selector: 'app-search-movies',
@@ -11,12 +11,13 @@ import  *  as  productData  from  'src/assets/movies.json';
 })
 export class SearchMoviesComponent implements OnInit {
   shortDesc: boolean = false
-  movies:  any  = (productData as  any).default;
+  //movies:  any  = (productData as  any).default;
   emailForm: FormGroup;
   submitted = false;
   ok = false;
   name: any;
   values_qry: HttpParams;
+  movies: any;
 
   constructor(private myformBuilder: FormBuilder) {
     this.emailForm = this.myformBuilder.group({
