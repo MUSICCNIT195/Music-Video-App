@@ -1,18 +1,28 @@
+<div class="formData">
+
+
+  <section *ngIf="submitted" class="finalresults">
+    <h4>Data you are submitting</h4>
+    <p><em>Name:</em> <span>{{ emailForm.controls.name.value }}</span></p>
+  </section>
+</div>
+
 <form [formGroup]="emailForm" (ngSubmit)="onSubmit()">
 
-    <h6 *ngIf="ok"> {{emailForm.get('name').value}} </h6>
-  
-    <label>
-      Search Movies Here: 
-      <input type="text" formControlName="name"><br>
-      <div *ngIf="submitted && emailForm.controls.name.errors" class="err">
-        <div *ngIf="emailForm.controls.name.errors.required">You cannot submit the form without a name</div>
-        <div *ngIf="emailForm.controls.name.errors.minlength">A valid name needs to have at least 3 characters</div>
-      </div>
-    </label>
-  
-    
-    <input type="submit" value="Search Movies" class="btnsub">
-     <input type="reset" value="Clear Form" class="btnsub">
-  
-  </form>
+  <h6 *ngIf="ok"> {{emailForm.get('name').value}} </h6>
+
+  <label>
+    Search Movies Here:
+    <input type="text" formControlName="name"><br>
+    <div *ngIf="submitted && emailForm.controls.name.errors" class="err">
+      <div *ngIf="emailForm.controls.name.errors.required">You cannot submit the form without a name</div>
+      <div *ngIf="emailForm.controls.name.errors.minlength">A valid name needs to have at least 3 characters</div>
+    </div>
+  </label>
+
+
+  <input type="submit" value="Search Movies" class="btnsub">
+  <input type="reset" value="Clear Form" class="btnsub">
+
+</form>
+

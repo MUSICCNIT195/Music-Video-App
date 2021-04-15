@@ -1,4 +1,3 @@
-import { query } from '@angular/animations';
 import { HttpParams } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
@@ -11,7 +10,6 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 })
 export class SearchMoviesComponent implements OnInit {
   shortDesc: boolean = false
-  //movies:  any  = (productData as  any).default;
   emailForm: FormGroup;
   submitted = false;
   ok = false;
@@ -42,7 +40,7 @@ export class SearchMoviesComponent implements OnInit {
 
 
   ngOnInit(): void {
-    console.log(this.movies);
+   
    
   }
   onSubmit() {
