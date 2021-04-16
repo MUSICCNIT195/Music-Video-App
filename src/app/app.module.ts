@@ -1,6 +1,5 @@
 import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
-
+import { NgModule, ErrorHandler } from '@angular/core';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { NavComponent } from './nav/nav.component';
@@ -11,7 +10,8 @@ import { RouterModule } from '@angular/router';
 import { ReactiveFormsModule } from '@angular/forms';
 import { SearchMoviesComponent } from './search-movies/search-movies.component';
 import { MovieTableComponent } from './movie-table/movie-table.component';
-
+import { HttpClientModule } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http'
 @NgModule({
   declarations: [
     AppComponent,
@@ -27,7 +27,9 @@ import { MovieTableComponent } from './movie-table/movie-table.component';
     BrowserModule,
     AppRoutingModule,
     RouterModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    BrowserModule,
+    HttpClientModule
   ],
   exports:[
     SearchMoviesComponent,
