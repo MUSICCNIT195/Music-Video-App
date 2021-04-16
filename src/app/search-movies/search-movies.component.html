@@ -7,7 +7,7 @@
   </section>
 </div>
 
-<form [formGroup]="emailForm" (ngSubmit)="onSubmit(); doGET();">
+<form [formGroup]="emailForm" (ngSubmit)="onSubmit();">
 
   <h6 *ngIf="ok"> {{emailForm.get('name').value}} </h6>
 
