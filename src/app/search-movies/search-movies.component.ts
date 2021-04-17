@@ -14,12 +14,14 @@ export class SearchMoviesComponent implements OnInit {
   submitted = false;
   ok = false;
   name: any;
+   jsonfile:any;
 
   baseUrl= 'https://api.themoviedb.org/3/search/movie?';
 
   apikey2 = '0a4252617bfe9d39fa9d115728b16c43'; //api key will be fixed for this assignment
    searchfor ='';
   fullUrl= '';
+  MoviesObj: Movies;
   constructor(private http: HttpClient, private myformBuilder: FormBuilder) {
     this.emailForm = this.myformBuilder.group({
       name: ['', Validators.required],
@@ -42,6 +44,9 @@ export class SearchMoviesComponent implements OnInit {
     console.log(
      this.http.get(value ).subscribe((res) => console.log(res))
     );
+    return    this.http.get(value )
+    
+    ;
     
   }
 
@@ -56,7 +61,9 @@ export class SearchMoviesComponent implements OnInit {
     this.searchfor = this.emailForm.get('name').value;
     console.log("On submit Method");
     console.log(this.createUrlMovie(this.searchfor));
-    this.doGET(this.createUrlMovie(this.searchfor));
+   this.jsonfile= this.doGET(this.createUrlMovie(this.searchfor));
+  
+    this.parseJsonResponse(this.jsonfile);
   }
   //after they submit the word search
   createUrlMovie(ss){
@@ -67,4 +74,19 @@ export class SearchMoviesComponent implements OnInit {
     //console.log("URL" + this.baseUrl + 'query=' + asString + '&api_key=' + this.apikey2);
      return this.baseUrl + 'query=' + asString + '&api_key=' + this.apikey2;
   }
+
+
+parseJsonResponse(val:any){
+//this.jsonfile = val;
+const d = JSON.parse(val) as Movies;
+// this.MoviesObj.title=val.title;
+ //console.log("Title : " +d);
+}
+
+}
+
+
+interface Movies {
+ title:string;
+
 }
