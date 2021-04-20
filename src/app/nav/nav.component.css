@@ -29,3 +29,8 @@ nav ul li a {
 nav ul li a:hover {
 	background-color: #5b1ba3;  /* darker purple */
 }
+
+
+.logo, nav ul li a{
+	color: white !important;
+}
