@@ -1,3 +1,13 @@
+<div *ngFor="let movie of moviesList">
+  <div class="movie">
+
+    <section class="title">{{ movie.title }}</section>
+    <section class="id">{{ movie.id }}</section>
+
+
+  </div>
+
+</div>
 <div class="formData">
 
 
@@ -21,7 +31,7 @@
   </label>
 
 
-  <input type="submit" value ="Search Movies" class="btnsub" > 
+  <input type="submit" value="Search Movies" class="btnsub">
   <input type="reset" value="Clear Form" class="btnsub">
 
 </form>
