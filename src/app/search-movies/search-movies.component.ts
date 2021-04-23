@@ -21,6 +21,9 @@ export class SearchMoviesComponent implements OnInit {
   searchfor = '';
   fullUrl = '';
   moviesList: any = [];
+ imageList: any = [];
+  baseImageUrl='https://image.tmdb.org/t/p/w200/';
+
   constructor(private http: HttpClient, private myformBuilder: FormBuilder) {
     this.emailForm = this.myformBuilder.group({
       name: ['', Validators.required],
@@ -52,6 +55,7 @@ export class SearchMoviesComponent implements OnInit {
     console.log('On submit Method');
     console.log(this.createUrlMovie(this.searchfor));
     this.jsonfile = this.doGET(this.createUrlMovie(this.searchfor));
+  
     this.parseJsonResponse(this.jsonfile);
 
   }
@@ -69,11 +73,21 @@ export class SearchMoviesComponent implements OnInit {
     httpResponse.subscribe((response) => {
       this.moviesList = response.results;
       console.log('parseJsonResponse ' , this.moviesList);
+      
+    
+      for(var i=0;i<this.moviesList.length;i++){
+        //console.log(this.moviesList[i].poster_path);
+       this.imageList[i]= this.baseImageUrl+ this.moviesList[i].poster_path;
+      }
+      console.log('Poster Path ' , this.imageList);
     });
   }
+
+  
 }
 
 export interface Movies {
   title: string;
   id: BigInteger;
+  poster_path: string;
 }
