@@ -33,10 +33,10 @@ export class SearchMoviesComponent implements OnInit {
 
   movieId: any;
   movieIdBaseUrl = 'https://api.themoviedb.org/3/movie/';
-  movieIdList: any = [];
+  movieIdUrlList: any = [];
   youtubeIdJsonArray: any = [];
   movieIdjsonfile: any;
-  youtubeIdKeysList: any;
+  youtubeIdKeysList: any = [];
 
   constructor(private http: HttpClient, private myformBuilder: FormBuilder) {
     this.emailForm = this.myformBuilder.group({
@@ -100,21 +100,20 @@ export class SearchMoviesComponent implements OnInit {
       for (var i = 0; i < this.moviesList.length; i++) {
         //console.log(this.moviesList[i].poster_path);
         this.imageList[i] = this.baseImageUrl + this.moviesList[i].poster_path;
-        this.movieIdList[i] = this.createUrlMovieId(this.moviesList[i].id);
-        this.grabYoutubeIds(this.http.get(this.movieIdList[i]));
+        this.movieIdUrlList[i] = this.createUrlMovieId(this.moviesList[i].id);
+        this.grabYoutubeIds(this.http.get(this.movieIdUrlList[i]));
       }
       console.log('Poster Path ', this.imageList);
-      console.log('Movie ids ', this.movieIdList);
+      console.log('Movie ids ', this.movieIdUrlList);
     });
   }
 
   grabYoutubeIds(httpResponse: any) {
     httpResponse.subscribe((response) => {
       this.youtubeIdKeysList = response.results;
-
       for (var i = 0; i < this.youtubeIdKeysList.length; i++) {
-        this.youtubeIdKeysList[i] = this.youtubeIdKeysList.key;
-        console.log('Youtube keys ' , this.youtubeIdKeysList[i]);
+        console.log('Youtube keys ', this.youtubeIdKeysList[i].key);
+        this.youtubeIdKeysList[i] = this.youtubeIdKeysList[i].key;
       }
     });
   }

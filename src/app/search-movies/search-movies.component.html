@@ -33,9 +33,17 @@
     <tr>
       <td class="id" *ngFor="let movie of moviesList"> {{ movie.id }} </td>
     </tr>
-   
+
     <tr>
       <td class="poster_path" *ngFor="let image of imageList"> <img src="{{ image}}"> </td>
+    </tr>
+
+
+    <tr>
+      <ng-container *ngFor="let id of  youtubeIdKeysList; let i = index">
+        <iframe [src]="id[i]" width="500" height="500">
+        </iframe>
+      </ng-container>
     </tr>
   </table>
 
