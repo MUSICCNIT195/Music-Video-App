@@ -25,19 +25,21 @@
 
 </form>
 
-<div *ngFor="let movie of moviesList">
+<div>
   <table class="movie">
     <tr>
-      <td class="title"> {{ movie.title }}</td>
-      <td class="id"> {{ movie.id }} </td>
-
+      <td class="title" *ngFor="let movie of moviesList"> {{ movie.title }}</td>
+    </tr>
+    <tr>
+      <td class="id" *ngFor="let movie of moviesList"> {{ movie.id }} </td>
+    </tr>
+   
+    <tr>
+      <td class="poster_path" *ngFor="let image of imageList"> <img src="{{ image}}"> </td>
     </tr>
   </table>
+
+
 </div>
-<table>
-  <td class="poster_path" *ngFor="let image of imageList ">
 
-    <img src="{{ image}}">
-
-  </td>
-</table>
+<iframe width="100%" height="300" src="https://www.youtube.com/embed/TcMBFSGVi1c"></iframe>

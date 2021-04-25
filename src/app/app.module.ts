@@ -12,6 +12,7 @@ import { SearchMoviesComponent } from './search-movies/search-movies.component';
 import { MovieTableComponent } from './movie-table/movie-table.component';
 import { HttpClientModule } from '@angular/common/http';
 import { HttpClient } from '@angular/common/http';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -24,6 +25,7 @@ import { HttpClient } from '@angular/common/http';
 
   ],
   imports: [
+
     BrowserModule,
     AppRoutingModule,
     RouterModule,
