@@ -1,4 +1,12 @@
-import { Component, NgModule, OnInit } from '@angular/core';
+import {
+  Component,
+  Input,
+  NgModule,
+  OnInit,
+  Pipe,
+  PipeTransform,
+  SecurityContext,
+} from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import {
   HttpClient,
@@ -8,6 +16,17 @@ import {
 } from '@angular/common/http';
 import 'rxjs/add/operator/map';
 import { concat } from 'rxjs';
+import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
+
+@Pipe({
+  name: 'safe',
+})
+export class SafePipe implements PipeTransform {
+  constructor(private sanitizer: DomSanitizer) {}
+  transform(url) {
+    return this.sanitizer.bypassSecurityTrustResourceUrl(url);
+  }
+}
 
 @Component({
   selector: 'app-search-movies',
@@ -38,7 +57,15 @@ export class SearchMoviesComponent implements OnInit {
   movieIdjsonfile: any;
   youtubeIdKeysList: any = [];
 
-  constructor(private http: HttpClient, private myformBuilder: FormBuilder) {
+  @Input()
+  url: string = 'https://www.youtube.com/embed/';
+  urlSafe: SafeResourceUrl;
+
+  constructor(
+    public sanitizer: DomSanitizer,
+    private http: HttpClient,
+    private myformBuilder: FormBuilder
+  ) {
     this.emailForm = this.myformBuilder.group({
       name: ['', Validators.required],
       //searchFor: ['', Validators.required],
@@ -53,8 +80,9 @@ export class SearchMoviesComponent implements OnInit {
    * name
    */
 
-  ngOnInit(): void {}
-
+  ngOnInit(): void {
+    this.urlSafe = this.sanitizer.bypassSecurityTrustResourceUrl(this.url);
+  }
   doGET(value) {
     return this.http.get<Movies[]>(value);
   }
@@ -114,8 +142,20 @@ export class SearchMoviesComponent implements OnInit {
       for (var i = 0; i < this.youtubeIdKeysList.length; i++) {
         console.log('Youtube keys ', this.youtubeIdKeysList[i].key);
         this.youtubeIdKeysList[i] = this.youtubeIdKeysList[i].key;
+        this.addVideoPlayers(this.youtubeIdKeysList[i]);
       }
     });
+  }
+
+  addVideoPlayers(videoId) {
+    var iframe = document.createElement('iframe');
+    iframe.style.display = 'none';
+    let url = 'https://www.youtube.com/embed/' + videoId;
+    iframe.src = this.sanitizer.sanitize(
+      SecurityContext.RESOURCE_URL,
+      this.sanitizer.bypassSecurityTrustResourceUrl(url)
+    );
+    document.getElementById('videos').append(iframe);
   }
 }
 

@@ -39,15 +39,22 @@
     </tr>
 
 
-    <tr>
-      <ng-container *ngFor="let id of  youtubeIdKeysList; let i = index">
-        <iframe [src]="id[i]" width="500" height="500">
-        </iframe>
-      </ng-container>
-    </tr>
+
   </table>
+  <!---
+  <div id="youtubeVideos" *ngFor="let youtubeIds of youtubeIdKeysList">
+    <iframe [src]= "sanitizer.bypassSecurityTrustResourceUrl('https://www.youtube.com/embed/' + youtubeIds)"></iframe>
+  </div>
+-->
+</div>
+<h1>Movie trailers!</h1>
+  <!---
+
+<iframe [src]="urlSafe | safe" height="600" width="1000"></iframe>
+-->
+
+<div id=videos>
 
 
 </div>
-
 <iframe width="100%" height="300" src="https://www.youtube.com/embed/TcMBFSGVi1c"></iframe>
