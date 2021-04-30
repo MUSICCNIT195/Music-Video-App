@@ -11,7 +11,9 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { SearchMoviesComponent } from './search-movies/search-movies.component';
 import { MovieTableComponent } from './movie-table/movie-table.component';
 import { HttpClientModule } from '@angular/common/http';
-import { HttpClient } from '@angular/common/http'
+import { HttpClient } from '@angular/common/http';
+import { SafePipe } from './safe-pipe/safe-pipe.component';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -21,7 +23,7 @@ import { HttpClient } from '@angular/common/http'
     ContactComponent,
     SearchMoviesComponent,
     MovieTableComponent,
-  
+    SafePipe
   ],
   imports: [
     BrowserModule,
@@ -29,13 +31,10 @@ import { HttpClient } from '@angular/common/http'
     RouterModule,
     ReactiveFormsModule,
     BrowserModule,
-    HttpClientModule
+    HttpClientModule,
   ],
-  exports:[
-    SearchMoviesComponent,
-    MovieTableComponent
-  ],
+  exports: [SearchMoviesComponent, MovieTableComponent],
   providers: [],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
 })
-export class AppModule { }
+export class AppModule {}

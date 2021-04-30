@@ -1,8 +1,32 @@
-import { HttpParams } from '@angular/common/http';
-import { Component, NgModule, OnInit } from '@angular/core';
+import {
+  Component,
+  Input,
+  NgModule,
+  OnInit,
+  Pipe,
+  PipeTransform,
+  SecurityContext,
+} from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { HttpClient } from '@angular/common/http';
-import { analyzeAndValidateNgModules } from '@angular/compiler';
+import {
+  HttpClient,
+  HttpHeaders,
+  HttpRequest,
+  HttpResponse,
+} from '@angular/common/http';
+import 'rxjs/add/operator/map';
+import { concat } from 'rxjs';
+import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
+
+@Pipe({
+  name: 'safe',
+})
+export class SafePipe implements PipeTransform {
+  constructor(private sanitizer: DomSanitizer) {}
+  transform(url) {
+    return this.sanitizer.bypassSecurityTrustResourceUrl(url);
+  }
+}
 
 @Component({
   selector: 'app-search-movies',
@@ -15,25 +39,40 @@ export class SearchMoviesComponent implements OnInit {
   submitted = false;
   ok = false;
   name: any;
-   jsonfile:any;
+  jsonfile: any;
 
-  baseUrl= 'https://api.themoviedb.org/3/search/movie?';
+  baseUrl = 'https://api.themoviedb.org/3/search/movie?';
 
   apikey2 = '0a4252617bfe9d39fa9d115728b16c43'; //api key will be fixed for this assignment
-   searchfor ='';
-  fullUrl= '';
-  MoviesObj: Movies;
- parsedMovieJson:any;
-stringJson:any;
+  searchfor = '';
+  fullUrl = '';
+  moviesList: any = [];
+  imageList: any = [];
+  baseImageUrl = 'https://image.tmdb.org/t/p/w200/';
 
+  movieId: any;
+  movieIdBaseUrl = 'https://api.themoviedb.org/3/movie/';
+  movieIdUrlList: any = [];
+  youtubeIdJsonArray: any = [];
+  movieIdjsonfile: any;
+  youtubeIdKeysList: any = [];
 
-  constructor(private http: HttpClient, private myformBuilder: FormBuilder) {
+  @Input()
+  url: string = 'https://www.youtube.com/embed/';
+  urlSafe: SafeResourceUrl;
+
+  constructor(
+    public sanitizer: DomSanitizer,
+    private http: HttpClient,
+    private myformBuilder: FormBuilder
+  ) {
     this.emailForm = this.myformBuilder.group({
       name: ['', Validators.required],
       //searchFor: ['', Validators.required],
     });
-   
   }
+
+  //https://api.themoviedb.org/3/movie/{movie_id}/videos?api_key=<<api_key>>&language=en-US
 
   //Final url: https://api.themoviedb.org/3/search/movie?query=James%20bond&api_key=0a4252617bfe9d39fa9d115728b16c43
   // finalUrl=BaseUrl + "&" + "query" & key & api_key= & key;
@@ -42,68 +81,87 @@ stringJson:any;
    */
 
   ngOnInit(): void {
-    
+    this.urlSafe = this.sanitizer.bypassSecurityTrustResourceUrl(this.url);
   }
-  doGETurl(value) {// pass url here 
-    //console.log(JSON.stringify(data));
-   // console.log( "Parse " +JSON.parse(JSON.stringify(data)));
-   return this.http.get<Object>(value).subscribe((data)=>{});
-  
-    
-    
-         
-  
-  
+  doGET(value) {
+    return this.http.get<Movies[]>(value);
   }
 
   onSubmit() {
-   // console.log('Full url: ' + this.fullUrl);
-    //this.parsedMovieJson=(data as any).default;
-    console.log(this.parseJsonResponse);
+    // console.log('Full url: ' + this.fullUrl);
+
     this.submitted = true;
     if (this.emailForm.invalid) {
       return; /* no code will be executed after this point */
     }
     this.ok = true;
     this.searchfor = this.emailForm.get('name').value;
-    console.log("On submit Method");
+    console.log('On submit Method');
     console.log(this.createUrlMovie(this.searchfor));
-    this.jsonfile= this.doGETurl(this.createUrlMovie(this.searchfor));
-  
-    
+    this.jsonfile = this.doGET(this.createUrlMovie(this.searchfor));
     this.parseJsonResponse(this.jsonfile);
+
+    //get json file for youtube trailer keys
   }
+
   //after they submit the word search
-  createUrlMovie(ss){
-    const asString =encodeURIComponent(ss).toString();
+  createUrlMovie(ss) {
+    const asString = encodeURIComponent(ss).toString();
     //console.log("search term: " + this.searchFor);
     let search = new URLSearchParams();
     search.set('title', this.searchfor);
     //console.log("URL" + this.baseUrl + 'query=' + asString + '&api_key=' + this.apikey2);
-     return this.baseUrl + 'query=' + asString + '&api_key=' + this.apikey2;
+    return this.baseUrl + 'query=' + asString + '&api_key=' + this.apikey2;
   }
 
+  //get the movie Id for youtube iframe
+  createUrlMovieId(movieId) {
+    //https://api.themoviedb.org/3/movie/{movie_id}/videos?api_key=<<api_key>>&language=en-US
+    return this.movieIdBaseUrl + movieId + '/videos?&api_key=' + this.apikey2;
+  }
 
-parseJsonResponse(val:any){
-//this.jsonfile = val;
-const d = JSON.stringify(val);
+  parseJsonResponse(httpResponse: any) {
+    httpResponse.subscribe((response) => {
+      this.moviesList = response.results;
+      console.log('parseJsonResponse ', this.moviesList);
 
-//Sean
-console.log( JSON.parse(d));
+      for (var i = 0; i < this.moviesList.length; i++) {
+        //console.log(this.moviesList[i].poster_path);
+        this.imageList[i] = this.baseImageUrl + this.moviesList[i].poster_path;
+        this.movieIdUrlList[i] = this.createUrlMovieId(this.moviesList[i].id);
+        this.grabYoutubeIds(this.http.get(this.movieIdUrlList[i]));
+      }
+      console.log('Poster Path ', this.imageList);
+      console.log('Movie ids ', this.movieIdUrlList);
+    });
+  }
 
-//sean
-//JSON.parse(val) as Movies;
-console.log("JSON Parse method  : "  + d );
-// this.MoviesObj.title=val.title;
-;
-}
-parseJsonResponse2(val:any){
-  
+  grabYoutubeIds(httpResponse: any) {
+    httpResponse.subscribe((response) => {
+      this.youtubeIdKeysList = response.results;
+      for (var i = 0; i < this.youtubeIdKeysList.length; i++) {
+        console.log('Youtube keys ', this.youtubeIdKeysList[i].key);
+        this.youtubeIdKeysList[i] = this.youtubeIdKeysList[i].key;
+        this.addVideoPlayers(this.youtubeIdKeysList[i]);
+      }
+    });
+  }
+
+  addVideoPlayers(videoId) {
+    var iframe = document.createElement('iframe');
+    iframe.style.display = 'none';
+    let url = 'https://www.youtube.com/embed/' + videoId;
+    iframe.src = this.sanitizer.sanitize(
+      SecurityContext.RESOURCE_URL,
+      this.sanitizer.bypassSecurityTrustResourceUrl(url)
+    );
+    document.getElementById('videos').append(iframe);
   }
 }
-
 
 export interface Movies {
- title:string;
-
+  title: string;
+  id: BigInteger;
+  poster_path: string;
+  key: string;
 }
