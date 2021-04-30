@@ -28,10 +28,12 @@
   
   
      <div class="newTbl">
-      <tr *ngFor="let movie of moviesList">
+      <tr class ="test" *ngFor="let movie of moviesList; let i = index">
 
       <!--  <td class="title" > {{ movie.title }}</td> -->
-          <td><button (click)="getMovieIdClick();" class="movieButton" id="movieButton" data-=" {{ movie.id }}"   mat-raised-button >  {{ movie.title }} </button></td>
+          <td>
+            <button (click)="getMovieIdClick();" class="movieButton" id="movieButton"  value=" {{ movie.id[i] }}"   mat-raised-button >  {{ movie.title }} </button>
+          </td>
           <td class="poster_path"  *ngFor="let image of imageList"> <img src="{{ image}}"> </td>
       </tr>
      
@@ -60,4 +62,10 @@
 
 
 </div>
-<iframe width="100%" height="300" src="https://www.youtube.com/embed/TcMBFSGVi1c"></iframe>
+<iframe class="vid" width="100%" height="300" src="{{movieUrl2}}"></iframe>
+<video class="video2"  controls>
+  <source src="{{movieUrl2}}">
+</video>
+<video class="video3"  controls>
+  <source src="https://www.youtube.com/embed/w5cIXFvgvpw" >
+</video>

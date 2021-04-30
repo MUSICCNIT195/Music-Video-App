@@ -25,6 +25,8 @@ export class SafePipe implements PipeTransform {
   transform(url) {
     return this.sanitizer.bypassSecurityTrustResourceUrl(url);
   }
+  
+
 }
 
 @Component({
@@ -114,19 +116,6 @@ export class SearchMoviesComponent implements OnInit {
     return this.baseUrl + 'query=' + asString + '&api_key=' + this.apikey2;
   }
 
-  getMovieIdClick(){
-
-   var clickAction = document.getElementById("movieButton").onclick = function(){
-    console.log("You clicked on movie ID : " );
-     //click action.value
-  
-     //returning the movie ID on click
-     return clickAction.value;// might need to handle selelected click index
-     //run iframe method to update id value
-  };
-  console.log("You clicked on movie ID : " + clickAction.getAttribute('data-'));
-
-  }
  //concat the getMovieClick and iframe player id change
  
 
@@ -158,7 +147,7 @@ export class SearchMoviesComponent implements OnInit {
       for (var i = 0; i < this.youtubeIdKeysList.length; i++) {
         console.log('Youtube keys ', this.youtubeIdKeysList[i].key);
         this.youtubeIdKeysList[i] = this.youtubeIdKeysList[i].key;
-        this.addVideoPlayers(this.youtubeIdKeysList[i]);
+        //this.addVideoPlayers(this.youtubeIdKeysList[i]);
       }
     });
   }
@@ -173,6 +162,27 @@ export class SearchMoviesComponent implements OnInit {
     );
     document.getElementById('videos').append(iframe); 
   }
+
+  movieUrl2(videoId){
+    console.log("Movie url" + 'https://www.youtube.com/embed/' + videoId);
+    //
+    return  'https://www.youtube.com/embed/' + videoId;
+  }
+  getMovieIdClick(){
+
+    var clickAction = document.getElementById("movieButton").getAttribute('value');
+     console.log("You clicked on movie ID : " );
+      //click action.value
+     
+      console.log("You clicked on movie value : " + clickAction);
+      //returning the movie ID on click
+      //return clickAction;// might need to handle selelected click index
+      //run iframe method to update id value
+      //call video - iframes method
+      this.addVideoPlayers(clickAction);
+   
+ 
+   }
   
 }
 
