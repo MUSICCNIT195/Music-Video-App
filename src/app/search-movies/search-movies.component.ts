@@ -2,6 +2,7 @@ import { HttpParams } from '@angular/common/http';
 import { Component, NgModule, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { HttpClient } from '@angular/common/http';
+import { analyzeAndValidateNgModules } from '@angular/compiler';
 
 @Component({
   selector: 'app-search-movies',
@@ -22,6 +23,10 @@ export class SearchMoviesComponent implements OnInit {
    searchfor ='';
   fullUrl= '';
   MoviesObj: Movies;
+ parsedMovieJson:any;
+stringJson:any;
+
+
   constructor(private http: HttpClient, private myformBuilder: FormBuilder) {
     this.emailForm = this.myformBuilder.group({
       name: ['', Validators.required],
@@ -39,20 +44,22 @@ export class SearchMoviesComponent implements OnInit {
   ngOnInit(): void {
     
   }
-  doGET(value) {// pass url here 
+  doGETurl(value) {// pass url here 
+    //console.log(JSON.stringify(data));
+   // console.log( "Parse " +JSON.parse(JSON.stringify(data)));
+   return this.http.get<Object>(value).subscribe((data)=>{});
+  
     
-    console.log(
-     this.http.get(value ).subscribe((res) => console.log(res))
-    );
-    return    this.http.get(value )
     
-    ;
-    
+         
+  
+  
   }
 
   onSubmit() {
    // console.log('Full url: ' + this.fullUrl);
-
+    //this.parsedMovieJson=(data as any).default;
+    console.log(this.parseJsonResponse);
     this.submitted = true;
     if (this.emailForm.invalid) {
       return; /* no code will be executed after this point */
@@ -61,8 +68,9 @@ export class SearchMoviesComponent implements OnInit {
     this.searchfor = this.emailForm.get('name').value;
     console.log("On submit Method");
     console.log(this.createUrlMovie(this.searchfor));
-   this.jsonfile= this.doGET(this.createUrlMovie(this.searchfor));
+    this.jsonfile= this.doGETurl(this.createUrlMovie(this.searchfor));
   
+    
     this.parseJsonResponse(this.jsonfile);
   }
   //after they submit the word search
@@ -78,15 +86,24 @@ export class SearchMoviesComponent implements OnInit {
 
 parseJsonResponse(val:any){
 //this.jsonfile = val;
-const d = JSON.parse(val) as Movies;
+const d = JSON.stringify(val);
+
+//Sean
+console.log( JSON.parse(d));
+
+//sean
+//JSON.parse(val) as Movies;
+console.log("JSON Parse method  : "  + d );
 // this.MoviesObj.title=val.title;
- //console.log("Title : " +d);
+;
+}
+parseJsonResponse2(val:any){
+  
+  }
 }
 
-}
 
-
-interface Movies {
+export interface Movies {
  title:string;
 
 }

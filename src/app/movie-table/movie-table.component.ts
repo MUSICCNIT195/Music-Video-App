@@ -7,10 +7,17 @@ import  *  as  productData  from  'src/assets/movies.json';
 })
 export class MovieTableComponent implements OnInit {
   movies:  any  = (productData as  any).default;
-  constructor() { }
+  movieslistJson:  any;
+  constructor() {
+    //json parse
+    this.movieslistJson = (productData as  any).default;
+   }
 
   ngOnInit(): void {
     console.log(this.movies);
+  }
+  ngOnSubmit(): void {
+
   }
 
 }
