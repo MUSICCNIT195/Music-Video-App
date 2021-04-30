@@ -24,21 +24,24 @@
   <input type="reset" value="Clear Form" class="btnsub">
 
 </form>
+<table>
+  
+  
+     <div class="newTbl">
+      <tr *ngFor="let movie of moviesList">
 
-<div>
-  <table class="movie">
+      <!--  <td class="title" > {{ movie.title }}</td> -->
+          <td><button (click)="getMovieIdClick();" class="movieButton" id="movieButton" data-=" {{ movie.id }}"   mat-raised-button >  {{ movie.title }} </button></td>
+          <td class="poster_path"  *ngFor="let image of imageList"> <img src="{{ image}}"> </td>
+      </tr>
+     
+     
+     </div>
+    
+
     <tr>
-      <td class="title" *ngFor="let movie of moviesList"> {{ movie.title }}</td>
+     
     </tr>
-    <tr>
-      <td class="id" *ngFor="let movie of moviesList"> {{ movie.id }} </td>
-    </tr>
-
-    <tr>
-      <td class="poster_path" *ngFor="let image of imageList"> <img src="{{ image}}"> </td>
-    </tr>
-
-
 
   </table>
   <!---
@@ -46,7 +49,7 @@
     <iframe [src]= "sanitizer.bypassSecurityTrustResourceUrl('https://www.youtube.com/embed/' + youtubeIds)"></iframe>
   </div>
 -->
-</div>
+
 <h1>Movie trailers!</h1>
   <!---
 

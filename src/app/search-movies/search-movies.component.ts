@@ -15,9 +15,8 @@ import {
   HttpResponse,
 } from '@angular/common/http';
 import 'rxjs/add/operator/map';
-import { concat } from 'rxjs';
 import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
-
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 @Pipe({
   name: 'safe',
 })
@@ -40,6 +39,7 @@ export class SearchMoviesComponent implements OnInit {
   ok = false;
   name: any;
   jsonfile: any;
+  imageList: any = [];
 
   baseUrl = 'https://api.themoviedb.org/3/search/movie?';
 
@@ -47,7 +47,7 @@ export class SearchMoviesComponent implements OnInit {
   searchfor = '';
   fullUrl = '';
   moviesList: any = [];
-  imageList: any = [];
+ 
   baseImageUrl = 'https://image.tmdb.org/t/p/w200/';
 
   movieId: any;
@@ -114,6 +114,22 @@ export class SearchMoviesComponent implements OnInit {
     return this.baseUrl + 'query=' + asString + '&api_key=' + this.apikey2;
   }
 
+  getMovieIdClick(){
+
+   var clickAction = document.getElementById("movieButton").onclick = function(){
+    console.log("You clicked on movie ID : " );
+     //click action.value
+  
+     //returning the movie ID on click
+     return clickAction.value;// might need to handle selelected click index
+     //run iframe method to update id value
+  };
+  console.log("You clicked on movie ID : " + clickAction.getAttribute('data-'));
+
+  }
+ //concat the getMovieClick and iframe player id change
+ 
+
   //get the movie Id for youtube iframe
   createUrlMovieId(movieId) {
     //https://api.themoviedb.org/3/movie/{movie_id}/videos?api_key=<<api_key>>&language=en-US
@@ -155,9 +171,12 @@ export class SearchMoviesComponent implements OnInit {
       SecurityContext.RESOURCE_URL,
       this.sanitizer.bypassSecurityTrustResourceUrl(url)
     );
-    document.getElementById('videos').append(iframe);
+    document.getElementById('videos').append(iframe); 
   }
+  
 }
+
+
 
 export interface Movies {
   title: string;
