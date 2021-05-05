@@ -191,6 +191,8 @@ export class SearchMoviesComponent implements OnInit {
 export interface Movies {
   title: string;
   id: BigInteger;
+  overview: string;
   poster_path: string;
   key: string;
+  desc:string;
 }

@@ -24,7 +24,7 @@
   <input type="reset" value="Clear Form" class="btnsub">
 
 </form>
-<table>
+<table id="empTable">
   
   
      <div class="newTbl">
@@ -32,8 +32,12 @@
 
       <!--  <td class="title" > {{ movie.title }}</td> -->
           <td>
-            <button (click)="getMovieIdClick();" class="movieButton" id="movieButton"  value=" {{ movie.id[i] }}"   mat-raised-button >  {{ movie.title }} </button>
+            <button (click)="getMovieIdClick();" class="movieButton" id="movieButton"  value=""   mat-raised-button 
+            >  {{ movie.id}} </button>
           </td>
+          <td > {{ movie.title }}</td>
+          <td > {{ movie.id }}</td>
+          <td > {{ movie.overview }}</td>
           <td class="poster_path"  *ngFor="let image of imageList"> <img src="{{ image}}"> </td>
       </tr>
      
@@ -51,7 +55,7 @@
     <iframe [src]= "sanitizer.bypassSecurityTrustResourceUrl('https://www.youtube.com/embed/' + youtubeIds)"></iframe>
   </div>
 -->
-
+<p id="info"></p>
 <h1>Movie trailers!</h1>
   <!---
 
