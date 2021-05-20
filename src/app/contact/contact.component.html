@@ -14,7 +14,8 @@
       <div *ngIf="emailForm.controls.name.errors.minlength">A valid name needs to have at least 3 characters</div>
     </div>
   </label>
-
+<br>
+<br>
   <label>
     Message:
     <textarea formControlName="message"></textarea>
@@ -22,6 +23,8 @@
         <div *ngIf="emailForm.controls.message.errors.required">What is your message to us?</div>
     </div>    
   </label>
+  <br>
+  <br>
 
   <input type="submit" value="Send Message" class="btnsub">
   <input type="reset" value="Clear Form" class="btnsub">
@@ -31,5 +34,6 @@
 <section *ngIf="submitted" class="finalresults">
   <h4>Data you are submitting</h4>
   <p><em>Name:</em> <span>{{ emailForm.controls.name.value }}</span></p>
+
   <p><em>Message:</em> <span>{{ emailForm.controls.message.value }}</span></p>
 </section>
