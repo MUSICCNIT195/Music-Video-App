@@ -24,32 +24,92 @@
   <input type="reset" value="Clear Form" class="btnsub">
 
 </form>
-<table id="empTable">
-  
-  
+
+<!-- <table id="empTable">
      <div class="newTbl">
       <tr class ="test" *ngFor="let movie of moviesList; let i = index">
-
-      <!--  <td class="title" > {{ movie.title }}</td> -->
+       <td class="title" > {{ movie.title }}</td> 
           <td>
             <button (click)="getMovieIdClick();" class="movieButton" id="movieButton"  value=""   mat-raised-button 
             >  {{ movie.id}} </button>
           </td>
           <td > {{ movie.title }}</td>
           <td > {{ movie.id }}</td>
-          <td > {{ movie.overview }}</td>
+         <td > {{ movie.overview }}</td>
           <td class="poster_path"  *ngFor="let image of imageList"> <img src="{{ image}}"> </td>
       </tr>
-     
-     
      </div>
-    
-
     <tr>
-     
     </tr>
+  </table> -->
+<!-- 
+  <div>
+    <table class="movie">
+      <tr>
+        <td class="title" *ngFor="let movie of moviesList"> {{ movie.title }}</td>
+      </tr>
+      <tr>
+        <td class="id" *ngFor="let movie of moviesList"> {{ movie.id }} </td>
+      </tr>
+      <tr>
+        <td class="poster_path" *ngFor="let image of imageList"> <img src="{{ image}}"> </td>
+      </tr>
+      <tr>
+        <td class="id" *ngFor="let movie of moviesList"> {{ movie.overview }} </td>
+      </tr>
 
-  </table>
+    </table>
+    </div> -->
+
+    <!-- <div *ngFor="let image of imageList" class="card" style="width: 18rem;">
+      <img  src="{{image}}" class="card-img-top" alt="...">
+      <div class="card-body">
+        <h5 class="card-title">Card title</h5>
+        <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+        <a href="#" class="btn btn-primary">Go somewhere</a>
+      </div>
+    </div> -->
+
+ 
+ 
+    <!-- <div class="row-fluid">
+      <div class="col-lg-12 col-md-10 ">
+          <div class="cover-container" >
+              <div class="cover-item card" *ngFor="let image of imageList; let i=index" style="background-image: url('https://d1nexqccu6ll7z.cloudfront.net/_images/s-14-197-61462CCC-uk.png')">
+                <img src="{{ image}}" class="card-img-top">
+                <div class="card-body">
+                  <h5 class="card-title">{{moviesList[i].title }}</h5>
+                  <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                  <a href="#" class="btn btn-primary">Go somewhere</a>
+                </div>
+              </div>
+          </div>
+      </div>
+  </div> -->
+
+  <div class="row-fluid">
+    <div class="col-lg-12 col-md-10 ">
+        <div class="cover-container">
+            <!-- START PANEL -->
+            <div class="cover-item card" *ngFor="let image of imageList; let i=index">
+              <div class="card-container">
+              <img src="{{ image}}" class="card-img-top">
+              <div class="card-body">
+              <p class="card-text">{{moviesList[i].title }}</p>
+              <p class="card-text">{{moviesList[i].id }}</p>
+            </div>
+          </div>
+        </div>
+           
+            <!-- END PANEL -->
+        </div>
+    </div>
+</div>
+<!-- <p>heloo</p>
+<div class="tooltipA">Hover over me
+  <span class="tooltiptext">Tooltip text</span>
+</div> -->
+
   <!---
   <div id="youtubeVideos" *ngFor="let youtubeIds of youtubeIdKeysList">
     <iframe [src]= "sanitizer.bypassSecurityTrustResourceUrl('https://www.youtube.com/embed/' + youtubeIds)"></iframe>
@@ -70,6 +130,9 @@
 <video class="video2"  controls>
   <source src="{{movieUrl2}}">
 </video>
-<video class="video3"  controls>
+<!-- <video class="video3"  controls>
   <source src="https://www.youtube.com/embed/w5cIXFvgvpw" >
-</video>
+</video> -->
+
+
+
